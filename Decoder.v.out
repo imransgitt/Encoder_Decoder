@@ -1,0 +1,40 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1110-g18392a46)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+S_000001cf53112df0 .scope module, "Decoder" "Decoder" 2 3;
+ .timescale 0 0;
+    .port_info 0 /INPUT 288 "poly_coeff";
+    .port_info 1 /OUTPUT 16 "binary_data";
+P_000001cf53113450 .param/l "OUTPUT_WIDTH" 0 2 5, +C4<00000000000000000000000000010000>;
+P_000001cf53113488 .param/l "POLY_SIZE" 0 2 4, +C4<00000000000000000000000000010000>;
+P_000001cf531134c0 .param/l "SCALE_FACTOR" 0 2 6, +C4<00000000000000000000000000000010>;
+v000001cf531132f0_0 .var "binary_data", 15 0;
+o000001cf53146fd8 .functor BUFZ 288, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v000001cf53112f80_0 .net "poly_coeff", 287 0, o000001cf53146fd8;  0 drivers
+v000001cf53113020_0 .var "selected_coeff", 17 0;
+E_000001cf531467e0 .event anyedge, v000001cf53112f80_0, v000001cf53113020_0;
+    .scope S_000001cf53112df0;
+T_0 ;
+    %wait E_000001cf531467e0;
+    %load/vec4 v000001cf53112f80_0;
+    %parti/s 18, 0, 2;
+    %store/vec4 v000001cf53113020_0, 0, 18;
+    %load/vec4 v000001cf53113020_0;
+    %ix/load 4, 2, 0;
+    %flag_set/imm 4, 0;
+    %shiftr 4;
+    %pad/u 16;
+    %assign/vec4 v000001cf531132f0_0, 0;
+    %jmp T_0;
+    .thread T_0, $push;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "Decoder.v";
